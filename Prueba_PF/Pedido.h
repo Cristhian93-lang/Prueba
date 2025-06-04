@@ -1,4 +1,3 @@
-// Pedido.h actualizado
 #ifndef PEDIDO_H
 #define PEDIDO_H
 #define MAX 100
@@ -18,7 +17,7 @@ private:
     string nombreRestaurante;
 
 public:
-    Pedido(); // Constructor por defecto
+    Pedido(); 
     Pedido(Cliente* cliente, string horaEntrega, string nombreRestaurante);
 
     void agregarPlato(const Plato& p);

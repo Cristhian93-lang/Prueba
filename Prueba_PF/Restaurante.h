@@ -33,7 +33,6 @@ public:
 
     void agregarPlato(const Plato& p);
     void mostrarMenu() const;
-    Plato buscarPlato(const string& nombre) const;
     const Plato* getPlatos() const;
     int sizePlatos() const;
 
@@ -85,15 +84,6 @@ void Restaurante::mostrarMenu() const {
         cout << i + 1 << ". ";
         platos[i].mostrarPlato();
     }
-}
-
-Plato Restaurante::buscarPlato(const string& nombre) const {
-    for (int i = 0; i < numPlatos; ++i) {
-        if (platos[i].getNombre() == nombre) {
-            return platos[i];
-        }
-    }
-    throw runtime_error("Plato no encontrado.");
 }
 
 const Plato* Restaurante::getPlatos() const {
