@@ -17,6 +17,19 @@ string obtenerHoraActual() {
     return string(buffer);
 }
 
+bool confirmarContrasena(Cliente* cliente) {
+    string intento;
+    cout << "\nIngrese su contrase\u00f1a para confirmar su orden: ";
+    getline(cin, intento);
+    if (intento == cliente->getContrasena()) {
+        cout << "Confirmacion exitosa.\n";
+        return true;
+    } else {
+        cout << "Contrasena incorrecta. Operacion cancelada.\n";
+        return false;
+    }
+}
+
 int main() {
     string nombre, correo, telefono, direccion, contrasena;
 
@@ -29,28 +42,6 @@ int main() {
 
     Cliente* clienteRegistrado = new Cliente(nombre, 1, correo, telefono, direccion, contrasena);
 
-    string intentoContrasena;
-    bool autenticado = false;
-    int intentos = 3;
-
-    while (intentos > 0 && !autenticado) {
-        cout << "\nIngrese su contraseña para continuar: ";
-        getline(cin, intentoContrasena);
-
-        if (intentoContrasena == clienteRegistrado->getContrasena()) {
-            cout << "Contraseña correcta.\n";
-            autenticado = true;
-        } else {
-            intentos--;
-            cout << "Contraseña incorrecta. Intentos restantes: " << intentos << endl;
-        }
-    }
-
-    if (!autenticado) {
-        cout << "Demasiados intentos fallidos. Cerrando programa.\n";
-        return 0;
-    }
-
     Restaurante* restaurantes[5] = {
         new Restaurante("Little Caesars"),
         new Restaurante("SushiDojo"),
@@ -58,6 +49,36 @@ int main() {
         new Restaurante("Los Gusanos de Don Chucho Taco"),
         new Restaurante("KFC")
     };
+
+    restaurantes[0]->agregarPlato(Plato("Pizza Pepperoni", 100.0, true));
+    restaurantes[0]->agregarPlato(Plato("Pizza Hawaiana", 90.0, true));
+    restaurantes[0]->agregarPlato(Plato("Super Cheese Pepperoni", 199.0, true));
+    restaurantes[0]->agregarPlato(Plato("Pepperoni Bacon Duo", 179.0, true));
+    restaurantes[0]->agregarPlato(Plato("Combo Crazy Puffs", 204.0, true));
+
+    restaurantes[1]->agregarPlato(Plato("Sushi Roll", 120.0, true));
+    restaurantes[1]->agregarPlato(Plato("Nigiri", 80.0, true));
+    restaurantes[1]->agregarPlato(Plato("Crunchy Camaron", 95.0, true));
+    restaurantes[1]->agregarPlato(Plato("Yakimeshi Mixto", 125.0, true));
+    restaurantes[1]->agregarPlato(Plato("Crunchy Cangrejo", 83.0, true));
+
+    restaurantes[2]->agregarPlato(Plato("Cheeseburger", 110.0, true));
+    restaurantes[2]->agregarPlato(Plato("Papas Fritas", 40.0, true));
+    restaurantes[2]->agregarPlato(Plato("Home Office Big Mac", 99.0, true));
+    restaurantes[2]->agregarPlato(Plato("Mc Trio Mediano McPollo", 89.0, true));
+    restaurantes[2]->agregarPlato(Plato("Malteada Vainilla", 59.0, true));
+
+    restaurantes[3]->agregarPlato(Plato("Taco Al Pastor x3", 35.0, true));
+    restaurantes[3]->agregarPlato(Plato("Quesadilla", 45.0, true));
+    restaurantes[3]->agregarPlato(Plato("QuesaBirria", 50.0, true));
+    restaurantes[3]->agregarPlato(Plato("Taco Suadero", 20.0, true));
+    restaurantes[3]->agregarPlato(Plato("Agua Sabor Orchata", 55.0, true));
+
+    restaurantes[4]->agregarPlato(Plato("Buket Clasico 6 piezas", 269.0, true));
+    restaurantes[4]->agregarPlato(Plato("MegaCombo Big Krunch", 208.0, true));
+    restaurantes[4]->agregarPlato(Plato("Hot Cheese Fries", 125.0, true));
+    restaurantes[4]->agregarPlato(Plato("Ke Tiras Lovers 9", 359.0, true));
+    restaurantes[4]->agregarPlato(Plato("Coca Cola Lata", 29.0, true));
 
     for (int i = 0; i < 5; ++i) {
         string baseTel = "555-000";
@@ -108,12 +129,14 @@ int main() {
                 }
 
                 cout << "\nDesea agregar otro plato? (s/n): ";
-                cin >> continuar;
-                cin.ignore();
+                cin >> continuar; cin.ignore();
             }
-            pedido.generarFactura();
-        }
-        else if (opcion == 2) {
+
+            if (confirmarContrasena(clienteRegistrado)) {
+                pedido.generarFactura();
+            }
+
+        } else if (opcion == 2) {
             cout << "\nSeleccione un restaurante:" << endl;
             for (int i = 0; i < 5; ++i)
                 cout << i + 1 << ". " << restaurantes[i]->getNombre() << endl;
@@ -138,8 +161,10 @@ int main() {
             cin >> idxEmp; cin.ignore();
             if (idxEmp < 1 || idxEmp > nEmps) continue;
 
-            Reservacion r(clienteRegistrado, emps[idxEmp - 1], rest->getNombre(), personas, mesa, hora);
-            r.generarFactura();
+            if (confirmarContrasena(clienteRegistrado)) {
+                Reservacion r(clienteRegistrado, emps[idxEmp - 1], rest->getNombre(), personas, mesa, hora);
+                r.generarFactura();
+            }
         }
     } while (opcion != 3);
 

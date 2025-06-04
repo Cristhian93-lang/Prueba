@@ -17,7 +17,7 @@ private:
     string nombreRestaurante;
 
 public:
-    Pedido(); 
+    Pedido();
     Pedido(Cliente* cliente, string horaEntrega, string nombreRestaurante);
 
     void agregarPlato(const Plato& p);
