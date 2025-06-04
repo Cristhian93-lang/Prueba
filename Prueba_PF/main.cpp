@@ -29,6 +29,28 @@ int main() {
 
     Cliente* clienteRegistrado = new Cliente(nombre, 1, correo, telefono, direccion, contrasena);
 
+    string intentoContrasena;
+    bool autenticado = false;
+    int intentos = 3;
+
+    while (intentos > 0 && !autenticado) {
+        cout << "\nIngrese su contraseña para continuar: ";
+        getline(cin, intentoContrasena);
+
+        if (intentoContrasena == clienteRegistrado->getContrasena()) {
+            cout << "Contraseña correcta.\n";
+            autenticado = true;
+        } else {
+            intentos--;
+            cout << "Contraseña incorrecta. Intentos restantes: " << intentos << endl;
+        }
+    }
+
+    if (!autenticado) {
+        cout << "Demasiados intentos fallidos. Cerrando programa.\n";
+        return 0;
+    }
+
     Restaurante* restaurantes[5] = {
         new Restaurante("Little Caesars"),
         new Restaurante("SushiDojo"),
@@ -37,41 +59,13 @@ int main() {
         new Restaurante("KFC")
     };
 
-    restaurantes[0]->agregarPlato(Plato("Pizza Pepperoni", 100.0, true));
-    restaurantes[0]->agregarPlato(Plato("Pizza Hawaiana", 90.0, true));
-    restaurantes[0]->agregarPlato(Plato("Super Cheese Pepperoni", 199.0, true));
-    restaurantes[0]->agregarPlato(Plato("Pepperoni Bacon Duo", 179.0, true));
-    restaurantes[0]->agregarPlato(Plato("Combo Crazy Puffs", 204.0, true));
-
-    restaurantes[1]->agregarPlato(Plato("Sushi Roll", 120.0, true));
-    restaurantes[1]->agregarPlato(Plato("Nigiri", 80.0, true));
-    restaurantes[1]->agregarPlato(Plato("Crunchy Camaron", 95.0, true));
-    restaurantes[1]->agregarPlato(Plato("Yakimeshi Mixto", 125.0, true));
-    restaurantes[1]->agregarPlato(Plato("Crunchy Cangrejo", 83.0, true));
-
-    restaurantes[2]->agregarPlato(Plato("Cheeseburger", 110.0, true));
-    restaurantes[2]->agregarPlato(Plato("Papas Fritas", 40.0, true));
-    restaurantes[2]->agregarPlato(Plato("Home Office Big Mac", 99.0, true));
-    restaurantes[2]->agregarPlato(Plato("Mc Trio Mediano McPollo", 89.0, true));
-    restaurantes[2]->agregarPlato(Plato("Malteada Vainilla", 59.0, true));
-
-    restaurantes[3]->agregarPlato(Plato("Taco Al Pastor x3", 35.0, true));
-    restaurantes[3]->agregarPlato(Plato("Quesadilla", 45.0, true));
-    restaurantes[3]->agregarPlato(Plato("QuesaBirria", 50.0, true));
-    restaurantes[3]->agregarPlato(Plato("Taco Suadero", 20.0, true));
-    restaurantes[3]->agregarPlato(Plato("Agua Sabor Orchata", 55.0, true));
-
-    restaurantes[4]->agregarPlato(Plato("Buket Clasico 6 piesas", 269.0, true));
-    restaurantes[4]->agregarPlato(Plato("MegaCombo Big Krunch", 208.0, true));
-    restaurantes[4]->agregarPlato(Plato("Hot Cheese Fries", 125.0, true));
-    restaurantes[4]->agregarPlato(Plato("Ke Tiras Lovers 9", 359.0, true));
-    restaurantes[4]->agregarPlato(Plato("Coca Cola Lata", 29.0, true));
-
     for (int i = 0; i < 5; ++i) {
-        restaurantes[i]->agregarEmpleado(new Empleado("Juan - " + restaurantes[i]->getNombre(), 10, "Mesero"));
-        restaurantes[i]->agregarEmpleado(new Empleado("Ana - " + restaurantes[i]->getNombre(), 11, "Mesero"));
-        restaurantes[i]->agregarEmpleado(new Empleado("Mary - " + restaurantes[i]->getNombre(), 12, "Cocinera"));
-        restaurantes[i]->agregarEmpleado(new Empleado("Diego - " + restaurantes[i]->getNombre(), 13, "Cocinera"));
+        string baseTel = "555-000";
+        string direccionSucursal = "Sucursal Centro";
+        restaurantes[i]->agregarEmpleado(new Empleado("Juan - " + restaurantes[i]->getNombre(), 10, baseTel + "0", direccionSucursal, "Mesero"));
+        restaurantes[i]->agregarEmpleado(new Empleado("Ana - " + restaurantes[i]->getNombre(), 11, baseTel + "1", direccionSucursal, "Mesero"));
+        restaurantes[i]->agregarEmpleado(new Empleado("Mary - " + restaurantes[i]->getNombre(), 12, baseTel + "2", direccionSucursal, "Cocinera"));
+        restaurantes[i]->agregarEmpleado(new Empleado("Diego - " + restaurantes[i]->getNombre(), 13, baseTel + "3", direccionSucursal, "Cocinera"));
     }
 
     int opcion;
