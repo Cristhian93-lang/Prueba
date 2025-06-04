@@ -11,12 +11,15 @@ private:
     bool disponible;
 
 public:
+    Plato(); 
     Plato(string nombre, float precio, bool disponible);
     string getNombre() const;
     float getPrecio() const;
     bool estaDisponible() const;
     void mostrarPlato() const;
 };
+
+Plato::Plato() : nombre(""), precio(0.0), disponible(false) {}
 
 Plato::Plato(string nombre, float precio, bool disponible)
     : nombre(nombre), precio(precio), disponible(disponible) {}
@@ -43,4 +46,3 @@ void Plato::mostrarPlato() const {
 }
 
 #endif
-

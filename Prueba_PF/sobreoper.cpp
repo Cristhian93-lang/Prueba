@@ -60,7 +60,9 @@ int main () {
   cout << luis.get_priv1() << ',' << luis.get_priv2() << ',' << luis.pub1 << ',' << luis.pub2 << '\n' ;
 
   cout << "Suma:\n";
-cout << miguel.get_priv1() << ',' << miguel.get_priv2() << ',' << miguel.pub1 << ',' << miguel.pub2 << '\n';
+  cout << hugo.get_priv1() << ',' << hugo.get_priv2() << ',' << hugo.pub1 << ',' << hugo.pub2 << '\n' ;
+  cout << paco.get_priv1() << ',' << paco.get_priv2() << ',' << paco.pub1 << ',' << paco.pub2 << '\n' ;
+  cout << miguel.get_priv1() << ',' << miguel.get_priv2() << ',' << miguel.pub1 << ',' << miguel.pub2 << '\n';
 
 
 

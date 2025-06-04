@@ -1,9 +1,9 @@
+// Pedido.h actualizado
 #ifndef PEDIDO_H
 #define PEDIDO_H
-
+#define MAX 100
 #include "Plato.h"
 #include "Cliente.h"
-#include <vector>
 #include <string>
 #include <ctime>
 using namespace std;
@@ -11,12 +11,14 @@ using namespace std;
 class Pedido {
 private:
     Cliente* cliente;
-    vector<Plato> platosSolicitados;
+    Plato platosSolicitados[MAX];
+    int numPlatos;
     float total;
     string horaEntrega;
     string nombreRestaurante;
 
 public:
+    Pedido(); // Constructor por defecto
     Pedido(Cliente* cliente, string horaEntrega, string nombreRestaurante);
 
     void agregarPlato(const Plato& p);
@@ -25,16 +27,16 @@ public:
     void setHora(string hora);
 };
 
-Pedido::Pedido(Cliente* cliente, string horaEntrega, string nombreRestaurante) {
-    this->cliente = cliente;
-    this->horaEntrega = horaEntrega;
-    this->nombreRestaurante = nombreRestaurante;
-    total = 0.0f;
-}
+Pedido::Pedido() : cliente(nullptr), numPlatos(0), total(0.0), horaEntrega(""), nombreRestaurante("") {}
+
+Pedido::Pedido(Cliente* cliente, string horaEntrega, string nombreRestaurante)
+    : cliente(cliente), horaEntrega(horaEntrega), nombreRestaurante(nombreRestaurante), numPlatos(0), total(0.0f) {}
 
 void Pedido::agregarPlato(const Plato& p) {
-    platosSolicitados.push_back(p);
-    total += p.getPrecio();
+    if (numPlatos < MAX) {
+        platosSolicitados[numPlatos++] = p;
+        total += p.getPrecio();
+    }
 }
 
 float Pedido::calcularTotal() const {
@@ -48,12 +50,12 @@ void Pedido::setHora(string hora) {
 void Pedido::generarFactura() const {
     cout << "\n\n------ FACTURA DE PEDIDO ------\n";
     cout << "Cliente: " << cliente->getNombre() << endl;
-    cout << "Dirección: " << cliente->getDireccion() << endl;
+    cout << "Direcci\u00f3n: " << cliente->getDireccion() << endl;
     cout << "Restaurante: " << nombreRestaurante << endl;
     cout << "Hora de entrega: " << horaEntrega << endl;
     cout << "Platos:\n";
-    for (const auto& p : platosSolicitados) {
-        cout << "  - " << p.getNombre() << ": $" << p.getPrecio() << endl;
+    for (int i = 0; i < numPlatos; ++i) {
+        cout << "  - " << platosSolicitados[i].getNombre() << ": $" << platosSolicitados[i].getPrecio() << endl;
     }
     cout << "Total a pagar: $" << total << endl;
     cout << "-------------------------------\n\n";
