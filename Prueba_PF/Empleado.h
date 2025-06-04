@@ -8,8 +8,8 @@ private:
 
 public:
     Empleado(string nombre, int id, string telefono, string direccion, string rol);
-    void mostrarDatos() const override;
-    void realizarTarea() const override;
+    void mostrarDatos() const;
+    void realizarTarea() const;
     string getRol() const;
 };
 
@@ -18,11 +18,11 @@ Empleado::Empleado(string nombre, int id, string telefono, string direccion, str
 
 void Empleado::mostrarDatos() const {
     cout << "Empleado: " << nombre << ", ID: " << id << ", Tel: " << telefono
-         << ", Dirección: " << direccion << ", Rol: " << rol << endl;
+         << ", Direccion: " << direccion << ", Rol: " << rol << endl;
 }
 
 void Empleado::realizarTarea() const {
-    cout << "Empleado en función: " << rol << endl;
+    cout << "Empleado en funcion: " << rol << endl;
 }
 
 string Empleado::getRol() const {
@@ -30,4 +30,3 @@ string Empleado::getRol() const {
 }
 
 #endif
-

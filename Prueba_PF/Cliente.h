@@ -9,8 +9,8 @@ private:
 
 public:
     Cliente(string nombre, int id, string correo, string telefono, string direccion, string contrasena);
-    void mostrarDatos() const override;
-    void realizarTarea() const override;
+    void mostrarDatos() const;
+    void realizarTarea() const;
 
     string getCorreo() const;
     string getContrasena() const;
@@ -21,11 +21,11 @@ Cliente::Cliente(string nombre, int id, string correo, string telefono, string d
 
 void Cliente::mostrarDatos() const {
     cout << "Cliente: " << nombre << ", ID: " << id << ", Correo: " << correo
-         << ", Tel: " << telefono << ", Dirección: " << direccion << endl;
+         << ", Tel: " << telefono << ", Direccion: " << direccion << endl;
 }
 
 void Cliente::realizarTarea() const {
-    cout << "Cliente realizando acción..." << endl;
+    cout << "Cliente realizando accion..." << endl;
 }
 
 string Cliente::getCorreo() const {

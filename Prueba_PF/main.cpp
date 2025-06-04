@@ -19,7 +19,7 @@ string obtenerHoraActual() {
 
 bool confirmarContrasena(Cliente* cliente) {
     string intento;
-    cout << "\nIngrese su contrase\u00f1a para confirmar su orden: ";
+    cout << "\nIngrese su contrasena para confirmar su orden: ";
     getline(cin, intento);
     if (intento == cliente->getContrasena()) {
         cout << "Confirmacion exitosa.\n";
@@ -133,6 +133,28 @@ int main() {
             }
 
             if (confirmarContrasena(clienteRegistrado)) {
+                string metodoPago;
+                cout << "\nSeleccione metodo de pago:\n1. Efectivo\n2. Tarjeta\nOpcion: ";
+                int opcionPago;
+                cin >> opcionPago;
+                cin.ignore();
+
+                if (opcionPago == 1) {
+                    metodoPago = "Efectivo";
+                    cout << "Pagara en efectivo al recibir el pedido.\n";
+                } else if (opcionPago == 2) {
+                    metodoPago = "Tarjeta";
+                    string numeroTarjeta, fecha, cvv;
+                    cout << "Ingrese numero de tarjeta: ";
+                    getline(cin, numeroTarjeta);
+                    cout << "Ingrese fecha de expiracion (MM/AA): ";
+                    getline(cin, fecha);
+                    cout << "Ingrese CVV: ";
+                    getline(cin, cvv);
+                    cout << "Pago realizado con tarjeta.\n";
+                }
+
+                pedido.setMetodoPago(metodoPago);
                 pedido.generarFactura();
             }
 
@@ -163,6 +185,29 @@ int main() {
 
             if (confirmarContrasena(clienteRegistrado)) {
                 Reservacion r(clienteRegistrado, emps[idxEmp - 1], rest->getNombre(), personas, mesa, hora);
+
+                string metodoPago;
+                cout << "\nSeleccione metodo de pago:\n1. Efectivo\n2. Tarjeta\nOpcion: ";
+                int opcionPago;
+                cin >> opcionPago;
+                cin.ignore();
+
+                if (opcionPago == 1) {
+                    metodoPago = "Efectivo";
+                    cout << "Pagara en efectivo al llegar al restaurante.\n";
+                } else if (opcionPago == 2) {
+                    metodoPago = "Tarjeta";
+                    string numeroTarjeta, fecha, cvv;
+                    cout << "Ingrese numero de tarjeta: ";
+                    getline(cin, numeroTarjeta);
+                    cout << "Ingrese fecha de expiracion (MM/AA): ";
+                    getline(cin, fecha);
+                    cout << "Ingrese CVV: ";
+                    getline(cin, cvv);
+                    cout << "Pago realizado con tarjeta.\n";
+                }
+
+                r.setMetodoPago(metodoPago);
                 r.generarFactura();
             }
         }

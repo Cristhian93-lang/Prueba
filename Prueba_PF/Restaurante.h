@@ -7,7 +7,6 @@
 #include "Empleado.h"
 #include "Pedido.h"
 #include <string>
-#include <map>
 #include <iostream>
 using namespace std;
 
@@ -20,7 +19,6 @@ private:
     int numEmpleados;
     Pedido pedidos[MAX];
     int numPedidos;
-    map<string, int> reservaciones;
 
 public:
     Restaurante(string nombre);
@@ -37,7 +35,6 @@ public:
     int sizePlatos() const;
 
     void tomarPedido(const Pedido& p);
-    void realizarReservacion(string nombreCliente, int cantidad);
 };
 
 Restaurante::Restaurante(string nombre)
@@ -75,11 +72,11 @@ void Restaurante::agregarPlato(const Plato& p) {
 
 void Restaurante::mostrarMenu() const {
     if (numPlatos == 0) {
-        cout << "El men\u00fa est\u00e1 vac\u00edo." << endl;
+        cout << "El menu esta vacio." << endl;
         return;
     }
 
-    cout << "------ MEN\u00da ------" << endl;
+    cout << "------ MENU ------" << endl;
     for (int i = 0; i < numPlatos; ++i) {
         cout << i + 1 << ". ";
         platos[i].mostrarPlato();
@@ -98,10 +95,6 @@ void Restaurante::tomarPedido(const Pedido& p) {
     if (numPedidos < MAX) {
         pedidos[numPedidos++] = p;
     }
-}
-
-void Restaurante::realizarReservacion(string nombreCliente, int cantidad) {
-    reservaciones[nombreCliente] = cantidad;
 }
 
 #endif
