@@ -1,11 +1,8 @@
 #ifndef RESTAURANTE_H
 #define RESTAURANTE_H
-
 #define MAX 100
-
 #include "Plato.h"
 #include "Empleado.h"
-#include "Pedido.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -17,8 +14,6 @@ private:
     int numPlatos;
     Empleado* empleados[MAX];
     int numEmpleados;
-    Pedido pedidos[MAX];
-    int numPedidos;
 
 public:
     Restaurante(string nombre);
@@ -33,12 +28,10 @@ public:
     void mostrarMenu() const;
     const Plato* getPlatos() const;
     int sizePlatos() const;
-
-    void tomarPedido(const Pedido& p);
 };
 
 Restaurante::Restaurante(string nombre)
-    : nombre(nombre), numPlatos(0), numEmpleados(0), numPedidos(0) {}
+    : nombre(nombre), numPlatos(0), numEmpleados(0) {}
 
 string Restaurante::getNombre() const {
     return nombre;
@@ -89,12 +82,6 @@ const Plato* Restaurante::getPlatos() const {
 
 int Restaurante::sizePlatos() const {
     return numPlatos;
-}
-
-void Restaurante::tomarPedido(const Pedido& p) {
-    if (numPedidos < MAX) {
-        pedidos[numPedidos++] = p;
-    }
 }
 
 #endif
